@@ -1,5 +1,7 @@
-<h1> All Movies </h1>
+<h1> MOVIES </h1>
 <% @movies.each do |movie| %>
 	<h2> <%= movie.title %> </h2>
+	<h3> <%= movie.version %></h3>
+	<h4> <%= movie.sessions %> </h4>
 <% end %>
 

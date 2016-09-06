@@ -6,9 +6,12 @@ class MoviesController < ApplicationController
   	@movies = Movie.all
   	clear
   	import
+  	@theatres = @@cinemas
  end
 
 private
+
+@@cinemas = Array.new
 
 def import
 
@@ -19,15 +22,15 @@ def import
 	@cinema_four = "&url=http%3A%2F%2Fmag.sapo.pt%2Fcinema%2Fsalas%2Fcinemas-nos-norteshopping%3Flocal%3D13"
 	@base = "https://extraction.import.io/query/extractor/bfda33f7-797a-42e7-b0e5-06d13b40fc2f?_apikey="
 	@allMoviesData = Array.new
+	cinemaUrls = Array[@cinema_one, @cinema_two, @cinema_three, @cinema_four]
 	
-	cinemas = Array[@cinema_one, @cinema_two, @cinema_three, @cinema_four]
-	
-	cinemas.each do |c|
+	cinemaUrls.each do |c|
 		source = @base + @apiKey + c
 	  	resp = Net::HTTP.get_response(URI.parse(source))
   		data = resp.body
   		hash = JSON.parse(data)
 		cName = hash["extractorData"]["data"][0]["group"][0]["cinema"][0]["text"]
+		@@cinemas.push(cName)
 		@allMoviesData = hash["extractorData"]["data"][1]["group"]
 		@allMoviesData.each do |x|
 			movie = Movie.new

@@ -1,7 +1,13 @@
-<h1> MOVIES </h1>
-<% @movies.each do |movie| %>
-	<h2> <%= movie.title %> </h2>
-	<h3> <%= movie.version %></h3>
-	<h4> <%= movie.sessions %> </h4>
+
+<% @theatres.each do |theatre| %>
+	<h2> <%= theatre.to_s %> </h2>
+	<% @movies.each do |movie| %>
+		<% if movie.cinema == theatre %>
+			<h3> <%= movie.title %> </h3>
+			<p> <%= movie.version %></p>
+			<p> <%= movie.sessions %> </p>
+			<% end %>
+	<% end %>
 <% end %>
+
 

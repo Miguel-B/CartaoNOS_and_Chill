@@ -1,13 +1,37 @@
-
-<% @theatres.each do |theatre| %>
-	<h2> <%= theatre.to_s %> </h2>
-	<% @movies.each do |movie| %>
-		<% if movie.cinema == theatre %>
-			<h3> <%= movie.title %> </h3>
-			<p> <%= movie.version %></p>
-			<p> <%= movie.sessions %> </p>
+<% @theatres.keys.sort.each do |theatre| %>
+	<div class="row" id=<%= @theatres.fetch(theatre) %>>
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-8">
+			<br>
+			<h2> <%= theatre.to_s %> </h2>
+			<br>
+			<% @movies.each do |movie| %>
+				<% if movie.cinema.downcase == theatre.downcase %>
+					<div class="card card-block">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-4">
+									<img class="img-responsive" src=<%= movie.poster %> width="70%" height="70	%" alt="Poster">
+								</div>
+								<div class="col-md-8">
+									<h4> <%= movie.title + " " + movie.version %> </h4>
+									<br>
+									<p> Director: <%= movie.director %></p>
+									<p> Actors: <%= movie.actors %></p>
+									<p> Synopse: <%= movie.synopsis %></p>
+									<p> <%= movie.time %></p>
+									<p> <%= movie.sessions %> </p>
+								</div>
+							</div>
+						</div>
+					</div>
+				<% end %>
 			<% end %>
-	<% end %>
+		</div>
+		<div class="col-md-2">
+		</div>
+	</div>
 <% end %>
 
 
